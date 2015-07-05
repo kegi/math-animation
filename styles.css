@@ -1,0 +1,20 @@
+body {
+
+    background-color: #000;
+}
+
+section#controls {
+
+    float: left;
+    width: 200px;
+    margin-right: 50px;
+}
+
+canvas#main {
+
+    float: left;
+}
+
+#info {
+    color: #fff;
+}

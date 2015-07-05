@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Math Animation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<section id="controls">
+
+    <button data-action="start">restart</button>
+    <hr>
+    <button data-action="change-shape" data-shape="0">Circle</button>
+    <br>
+    <button data-action="change-shape" data-shape="3">Triangle (3)</button>
+    <br>
+    <button data-action="change-shape" data-shape="4">Square (4)</button>
+    <br>
+    <button data-action="change-shape" data-shape="5">Pentagon (5)</button>
+    <br>
+    <button data-action="change-shape" data-shape="6">Hexagone (6)</button>
+    <br>
+    <button data-action="change-shape" data-shape="7">Heptagone (7)</button>
+    <br>
+    <button data-action="change-shape" data-shape="8">Octogon (8)</button>
+    <br>
+    <button data-action="change-shape" data-shape="20">Icosagon (20)</button>
+    <br>
+    <hr>
+    <button data-action="change-value" data-value="299">CRAZY !</button>
+    <hr>
+    <div id="info"></div>
+
+</section>
+
+<canvas id="main"></canvas>
+
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="math_animation.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var animation = new MathAnimation({
+            el: $('canvas#main')[0],
+            canvasSize: 650,
+            canvasPadding: 5,
+            shapeNbSides: 0,
+            animationDelay: 25,
+            multiplicatorStep: 0.015,
+            nbPoints: 300,
+            showPoints: false,
+            pointSize: 4,
+            pointColor: '#006600',
+            lineColor: '#0f0',
+            lineSecondaryColor: '#fff',
+            lineSecondarySize: 1
+        });
+
+        $('[data-action="start"]').on('click', function (event) {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            animation.start();
+
+        }.bind(animation));
+
+        $('[data-action="change-shape"]').on('click', function (event) {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            animation.shapeNbSides = parseInt($(event.target).data('shape'));
+            animation.calculatePoints();
+
+        }.bind(animation));
+
+        $('[data-action="change-value"]').on('click', function (event) {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            animation.multiplicator = parseInt($(event.target).data('value'));
+
+        }.bind(animation));
+    });
+
+</script>
+
+</body>
+</html>

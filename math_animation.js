@@ -22,7 +22,11 @@ MathAnimation.prototype.initialize = function (options) {
     this.initialMultiplicator = options.initialMultiplicator || 2.01;
     this.multiplicator = null;
     this.multiplicatorStep = options.multiplicatorStep || 0.01;
+    this.minMultiplicator = options.minMultiplicator || 0;
+    this.maxMultiplicator = options.maxMultiplicator || 0;
+    this.multiplicatorIncrementing = true;
 
+    this.useInitialAnimation = typeof options.useInitialAnimation !== undefined ? options.useInitialAnimation : true;
     this.initialAnimationDelay = options.animationDelay || 25;
     this.animationDelay = null;
     this.animationTimeout = null;
@@ -58,7 +62,13 @@ MathAnimation.prototype.start = function () {
     clearTimeout(this.animationTimeout);
     clearTimeout(this.initialAnimationTimeout);
 
-    this.initialAnimation();
+    if (this.useInitialAnimation) {
+        this.initialAnimation();
+    } else {
+        this.nbPoints = this.initialNbPoints;
+        this.calculatePoints();
+    }
+
     this.run();
 };
 
@@ -93,7 +103,20 @@ MathAnimation.prototype.run = function () {
 
     this.animationTimeout = setTimeout(function () {
 
-        this.multiplicator += this.multiplicatorStep;
+        if (this.multiplicatorIncrementing) {
+            this.multiplicator += this.multiplicatorStep;
+        } else {
+            this.multiplicator -= this.multiplicatorStep;
+        }
+
+        if (this.maxMultiplicator !== 0 && this.multiplicator >= this.maxMultiplicator) {
+            this.multiplicatorIncrementing = false;
+        } else {
+            if (this.minMultiplicator !== 0 && this.multiplicator <= this.minMultiplicator) {
+                this.multiplicatorIncrementing = true;
+            }
+        }
+
         $('#info').html(Math.round(this.multiplicator * 100) / 100);
         this.run();
 

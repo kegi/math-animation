@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Space</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="space.css">
+</head>
+<body>
+
+<canvas id="sun"></canvas>
+
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="../../math_animation.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var anim = new MathAnimation({
+            el: $('canvas#sun')[0],
+            canvasSize: 614,
+            canvasPadding: 0,
+            shapeNbSides: 0,
+            useInitialAnimation: false,
+            animationDelay: 40,
+            multiplicatorStep: 0.05,
+            initialMultiplicator: 498,
+            minMultiplicator: 498,
+            maxMultiplicator: 540,
+            nbPoints: 500,
+            showPoints: false,
+            lineColor: '#FAE697',
+            lineSecondaryColor: '#FFEDC4',
+            lineSecondarySize: 1
+        });
+
+        setInterval(function () {
+
+            var min = 1;
+            var max = 1000;
+            anim.multiplicatorStep = (Math.random() * (max - min) + min) / 10000;
+
+        }.bind(anim), 2000);
+    });
+
+</script>
+
+
+<div id="info"></div>
+
+</body>
+</html>

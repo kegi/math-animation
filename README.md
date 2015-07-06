@@ -2,7 +2,11 @@
 Math can be beautiful
 
 ## Demo
-http://kegi.github.io/math-animation/
+### Sandbox :
+http://kegi.github.io/math-animation/demos/sandbox
+
+### Space animation :
+http://kegi.github.io/math-animation/demos/space
 
 ---
 
